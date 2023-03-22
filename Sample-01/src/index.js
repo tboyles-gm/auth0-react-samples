@@ -6,6 +6,8 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 import history from "./utils/history";
 import { getConfig } from "./config";
+import flagsmith from 'flagsmith'
+import {FlagsmithProvider} from 'flagsmith/react'
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -29,7 +31,9 @@ const providerConfig = {
 
 ReactDOM.render(
   <Auth0Provider {...providerConfig}>
-    <App />
+    <FlagsmithProvider options={{environmentID: process.env.REACT_APP_FLAGSMITH_ENVIRONMENT_ID,cacheFlags:true}} flagsmith={flagsmith}>
+      <App />
+    </FlagsmithProvider>,
   </Auth0Provider>,
   document.getElementById("root")
 );
