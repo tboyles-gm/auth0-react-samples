@@ -1,10 +1,9 @@
 import React, { Fragment } from "react";
-import { withLDConsumer } from 'launchdarkly-react-client-sdk';
 import Hero from "../components/Hero";
 import Content from "../components/Content";
 import Flag from "../components/Flag";
 
-const Home = ({ flags }) => (
+const Home = () => (
   <Fragment>
     <Hero />
     <Flag />
@@ -13,4 +12,4 @@ const Home = ({ flags }) => (
   </Fragment>
 );
 
-export default withLDConsumer()(Home);
+export default Home;

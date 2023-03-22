@@ -10,7 +10,6 @@ import Profile from "./views/Profile";
 import ExternalApi from "./views/ExternalApi";
 import { useAuth0 } from "@auth0/auth0-react";
 import history from "./utils/history";
-import { withLDProvider } from 'launchdarkly-react-client-sdk';
 
 // styles
 import "./App.css";
@@ -48,6 +47,4 @@ const App = () => {
 };
 
 
-export default withLDProvider({
-  clientSideID: '6418c25a9122d213fcf645a2'
-})(App);
+export default App;
