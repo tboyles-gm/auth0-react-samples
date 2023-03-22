@@ -6,6 +6,21 @@ import * as serviceWorker from "./serviceWorker";
 import { Auth0Provider } from "@auth0/auth0-react";
 import history from "./utils/history";
 import { getConfig } from "./config";
+import { GrowthBook } from "@growthbook/growthbook-react";
+import { GrowthBookProvider } from "@growthbook/growthbook-react";
+
+const growthbook = new GrowthBook({
+  apiHost: process.env.REACT_APP_GROWTHBOOK_API_HOST,
+  clientKey: process.env.REACT_APP_GROWTHBOOK_CLIENT_KEY,
+  enableDevMode: true,
+  trackingCallback: (experiment, result) => {
+    // TODO: Use your real analytics tracking system
+    console.log("Viewed Experiment", {
+      experimentId: experiment.key,
+      variationId: result.key
+    });
+  }
+});
 
 const onRedirectCallback = (appState) => {
   history.push(
@@ -29,7 +44,9 @@ const providerConfig = {
 
 ReactDOM.render(
   <Auth0Provider {...providerConfig}>
-    <App />
+    <GrowthBookProvider growthbook={growthbook}>
+      <App />
+    </GrowthBookProvider>
   </Auth0Provider>,
   document.getElementById("root")
 );
